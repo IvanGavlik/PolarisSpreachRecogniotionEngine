@@ -16,7 +16,13 @@ public final class SpeechResultEventManager {
 	private List<SpeechResultEventListener> listeners;
 	
 	public void publishEvent(final SpeechResultEvent speechResultEvent) {
-		listeners.stream().forEach(el -> el.onSpeechResultEvent(speechResultEvent)); 
+		listeners.stream().forEach(el -> {
+			try {
+				el.onSpeechResultEvent(speechResultEvent);
+			} catch (Exception e) {
+				throw new PublishSpeechResultEventException(e);
+			}
+		}); 
 	} 
 	
 	public void addSpeechResultEventListener(SpeechResultEventListener speechResultEventListener) {

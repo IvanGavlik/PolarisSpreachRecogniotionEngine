@@ -1,6 +1,8 @@
 package com.polaris.speachRecognitoinEngine;
 
 
+import com.polaris.speachRecognitoinEngine.mqtt.MqttClientAdapter;
+import com.polaris.speachRecognitoinEngine.mqtt.MqttConfiguration;
 import com.polaris.speachRecognitoinEngine.speechResult.MqttSpeechResultEventListener;
 import com.polaris.speachRecognitoinEngine.speechResult.SpeechResultEvent;
 import com.polaris.speachRecognitoinEngine.speechResult.SpeechResultEventManager;
@@ -19,12 +21,13 @@ public class SpeachRecognitoinEngine {
 	/**
 	 * TODO: 
 	 * 	-> https://github.com/cmusphinx/sphinx4/blob/master/sphinx4-samples/src/main/java/edu/cmu/sphinx/demo/dialog/DialogDemo.java
-	 * @param args
+	 * @param argstt
 	 * @throws Exception
 	 */
 	public static void startRecognition() throws Exception {
 		
-		speechResultEventManager.addSpeechResultEventListener(new MqttSpeechResultEventListener());
+		MqttConfiguration mqttConfiguration = MqttConfiguration.getInstance("broker", "topic", "clientId", 0, true, true);
+		speechResultEventManager.addSpeechResultEventListener(new MqttSpeechResultEventListener(new MqttClientAdapter(mqttConfiguration)));
 		
 		Configuration configuration = new Configuration();
 
