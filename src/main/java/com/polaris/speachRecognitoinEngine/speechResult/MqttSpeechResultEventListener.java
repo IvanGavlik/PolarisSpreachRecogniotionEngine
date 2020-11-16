@@ -1,15 +1,15 @@
 package com.polaris.speachRecognitoinEngine.speechResult;
 
-import com.polaris.speachRecognitoinEngine.mqtt.MqttClient;
+import com.polaris.speachRecognitoinEngine.mqtt.MqttClientAdapter;
 
 public final class MqttSpeechResultEventListener implements SpeechResultEventListener {
-	
-	private MqttClient mqttClient;
-	
-	public MqttSpeechResultEventListener() {
-		this.mqttClient = new MqttClient();
-	}  
-	
+
+	private MqttClientAdapter mqttClient;
+
+	public MqttSpeechResultEventListener(MqttClientAdapter mqttClient) {
+		this.mqttClient = mqttClient;
+	}
+
 	@Override
 	public void onSpeechResultEvent(SpeechResultEvent speechResultEvent) {
 		mqttClient.publish(speechResultEvent.getHypothesis());
