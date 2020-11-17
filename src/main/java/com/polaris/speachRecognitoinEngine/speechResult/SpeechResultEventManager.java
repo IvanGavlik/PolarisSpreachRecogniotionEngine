@@ -1,5 +1,6 @@
 package com.polaris.speachRecognitoinEngine.speechResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class SpeechResultEventManager {
@@ -13,7 +14,7 @@ public final class SpeechResultEventManager {
 	}
 	
 	
-	private List<SpeechResultEventListener> listeners;
+	private List<SpeechResultEventListener> listeners = new ArrayList<SpeechResultEventListener>();
 	
 	public void publishEvent(final SpeechResultEvent speechResultEvent) {
 		listeners.stream().forEach(el -> {

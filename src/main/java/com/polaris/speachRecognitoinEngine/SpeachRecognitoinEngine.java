@@ -1,5 +1,7 @@
 package com.polaris.speachRecognitoinEngine;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.polaris.speachRecognitoinEngine.mqtt.MqttClientAdapter;
 import com.polaris.speachRecognitoinEngine.mqtt.MqttConfiguration;
@@ -14,6 +16,7 @@ import edu.cmu.sphinx.api.SpeechResult;
 
 public class SpeachRecognitoinEngine {
 
+    private static final Logger logger = LogManager.getLogger(SpeachRecognitoinEngine.class); 
 
 	private static SpeechResultEventManager speechResultEventManager = SpeechResultEventManager.getInstance();  
 	 
@@ -26,7 +29,9 @@ public class SpeachRecognitoinEngine {
 	 */
 	public static void startRecognition() throws Exception {
 		
-		MqttConfiguration mqttConfiguration = MqttConfiguration.getInstance("broker", "topic", "clientId", 0, true, true);
+		logger.info("startRecognition");
+		
+		MqttConfiguration mqttConfiguration = MqttConfiguration.getInstance("tcp://broker.hivemq.com:1883", "testtopic/1", "clientId-zU8LMleRAI", 0, true, true);
 		speechResultEventManager.addSpeechResultEventListener(new MqttSpeechResultEventListener(new MqttClientAdapter(mqttConfiguration)));
 		
 		Configuration configuration = new Configuration();
@@ -45,15 +50,18 @@ public class SpeachRecognitoinEngine {
 			// startRecognition(false). 
 			String hypothesis = result.getHypothesis();
 			
-			speechResultEventManager.publishEvent(new SpeechResultEvent(hypothesis));
-			
-			System.out.print("result::" + hypothesis);
+			speechResultEventManager.publishEvent(new SpeechResultEvent(hypothesis));			
 			if (hypothesis.equals("one")) {
 				break;
 			}
 		}
+		
+		logger.info("stopRecognition");
 		recognizer.stopRecognition();
 
 	}
 
+	public static void main(String[] args) throws Exception {
+		SpeachRecognitoinEngine.startRecognition();
+	}
 }
