@@ -3,6 +3,12 @@ Speach recognition api
  - https://en.wikipedia.org/wiki/Java_Speech_API
  
 TODO
-- Loger
+- tests
+- contributing guide 
+- read me guide
+- uml diagram
+- set up project help page
 - finish client 
 - console app
+- improve speach recognition
+- logger in file for debuging  

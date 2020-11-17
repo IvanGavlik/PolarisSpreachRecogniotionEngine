@@ -65,5 +65,12 @@ public final class MqttConfiguration {
 		return configuration;
 		
 	}
+
+	
+	@Override
+	public String toString() {
+		return "MqttConfiguration [broker=" + broker + ", topic=" + topic + ", clientId=" + clientId + ", qos=" + qos
+				+ ", cleanSession=" + cleanSession + ", automaticReconnect=" + automaticReconnect + "]";
+	}
 	
 }
