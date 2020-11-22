@@ -12,3 +12,5 @@ TODO
 - console app
 - improve speach recognition
 - logger in file for debuging  
+- see todos in SpeachRecognitoinEngine.java
+- distinct users by their voice (AI -> should I use python)
